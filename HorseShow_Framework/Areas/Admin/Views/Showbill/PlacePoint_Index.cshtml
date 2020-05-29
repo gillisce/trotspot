@@ -1,0 +1,86 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.PointsPerPlace_VM
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table id="pointPlaceTable" class="table tableUseCasesLanding">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.intPlace)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.intNumPoints)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.placePointValues)
+                {
+                    <tr id="@(item.intPlacePointValues + "_row")">
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intPlace)</span>
+                            @Html.EditorFor(modelItem => item.intPlace, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intPlacePointValues + "_Place", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intNumPoints)</span>
+                            @Html.EditorFor(modelItem => item.intNumPoints, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intPlacePointValues + "_Points", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td style="white-space:nowrap; text-align: center;">
+                            <a href="javascript:void(0);" title="Edit" class="linkTeal divNoEditing" onclick="editRow(this.id)" id="@item.intPlacePointValues">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Delete" class="linkTeal divNoEditing rightButton" id="@item.intPlacePointValues" onclick="removePointPlace(this.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Update" class="linkTeal divYesEditing" onclick="updatePointPlace(this.id)" id="@item.intPlacePointValues">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Cancel" class="linkTeal divYesEditing rightButton" onclick="cancelEditRow(this.id)" id="@item.intPlacePointValues">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+    <!-- no new row; shown on load -->
+    <div class="row datatableFooter">
+        <div class="col-xl-9 divNoNewRow"></div>
+        <div class="col-xl-3 divNoNewRow buttonUpdateUseCase">
+            <a href="javascript:void(0);" title="Insert" class="card cardSmaller cardSmallerTextLightGrey" onclick="addNewRow()">
+                <div class="card-body" style="cursor: pointer; text-align: center;">
+                    <h5 class="card-title" style="margin-bottom: 0;">
+                        <i class="fas fa-plus colorTeal" style="font-size: 16px; padding-right: 6px;"></i>
+                        <span class="fontWeight600 colorTeal">Add</span>
+                        <span style="font-weight: 300;">Row</span>
+                    </h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- yes new row; shown when button is pressed -->
+    <div class="row datatableFooter">
+        <div class="col-xl-4 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.intPlace, new { htmlAttributes = new { @class = "form-control", @placeholder = "Place", @id = "Place" } })
+        </div>
+
+        <div class="col-xl-7 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.intNumPoints, new { htmlAttributes = new { @class = "form-control", @placeholder = "Point Value", @id = "Points", @style = "margin-top: 0;" } })
+        </div>
+
+        <!-- buttons -->
+        <div class="col-xl-1 divYesNewRow" style="text-align: right; padding-left: 0;">
+            <a href="javascript:void(0);" title="Insert" class="linkTeal" onclick="insertPointPlace()">
+                <i class="fas fa-check" style="font-size: 1rem;"></i>
+            </a>
+            <a href="javascript:void(0);" title="Cancel" class="linkTeal rightButton" onclick="cancelInsertRow()">
+                <i class="fas fa-times" style="font-size: 1rem;"></i>
+            </a>
+        </div>
+    </div>
+</div>

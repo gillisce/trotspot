@@ -1,0 +1,14 @@
+﻿.card {
+    &.shopping-card {
+        border: 2px solid $primary-color;
+    }
+}
+
+.link-as-card:hover {
+    text-decoration: none;
+    .card:hover {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+        border: 2px solid darken($primary-color, 10%);
+        color: darken($primary-color, 25%);
+    }
+}

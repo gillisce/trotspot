@@ -1,0 +1,55 @@
+﻿@model HorseShow_Framework.Areas.KCrusade.ViewModels.Index_VM
+@{
+        ViewBag.Title = "Trot Spot Home";
+        ViewBag.Description = "Register for Your Horse Show";
+        ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+        ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+        ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+        ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+        ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+        ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+    }
+
+<!-- for small screens only -->
+<div class="container-fluid sm-hide">
+    <div class="row">
+        <div class="col-12 p-0">
+            <div class="jumbotron min-vh-100 text-center m-0 d-flex flex-column justify-content-center">
+                <h1 class="display-4">Kelli's C.R.U.S.A.D.E.</h1>
+                <p class="lead">Click to register for the show. If you register incorrectly, we can correct it the day of at the entry booth. You are still required to check in</p>
+                <hr class="my-2">
+                <div class="row">
+                    <a class="btn btn-primary btn-lg mx-auto" href="@Url.Action("Registration", "Home", new {Area = "KCrusade" })" role="button">Register a Rider</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- for medium and above screens -->
+<div class="carousel slide sm-and-below-hide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item carousel-item-transparent active">
+            <div class="d-flex justify-content-center min-vw-100">
+                <img src="https://images.unsplash.com/photo-1450052590821-8bf91254a353?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <div class="carousel-item carousel-item-transparent">
+            <div class="d-flex justify-content-center min-vw-100">
+                <img src="https://images.unsplash.com/photo-1512934772407-b292436089ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=948&q=80" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <div class="carousel-item carousel-item-transparent">
+            <div class="d-flex justify-content-center min-vw-100">
+                <img src="https://images.unsplash.com/photo-1549737524-aef1a1f12ccd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron jumbotron-transparent jumbotron-centered-content">
+        <h1 class="display-4">Kelli's C.R.U.S.A.D.E.</h1>
+        <p class="lead lg-and-below-hide">Continuing Road Upgrades, Safety Awareness & Driver Education</p>
+        <hr class="my-4">
+        <p class="md-and-below-hide">Click to register for the show. If you register incorrectly, we can correct it the day of at the entry booth. You are still required to check in</p>
+        <a class="btn btn-primary btn-lg align-items-center" href="@Url.Action("Registration", "Home", new {Area = "KCrusade" })" role="button">Register a Rider</a>
+    </div>
+</div>

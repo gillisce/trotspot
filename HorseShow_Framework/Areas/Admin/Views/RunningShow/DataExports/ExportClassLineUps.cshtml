@@ -1,0 +1,211 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Export_ClassLineUps
+@{
+    ViewBag.Title = "Export Class Line Ups";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+<style>
+    .collapsible {
+        color: #ff6a99;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+    }
+
+        .collapsible:hover {
+            color: #404040;
+            text-decoration: none;
+        }
+
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+</style>
+<script>
+    function initDatatableNoCheck() {
+        $('#nonCheckedIn').DataTable({
+            dom:/*'<"row my-4"Bf>t',*/
+                "<'row'<'col-lg-3'B><'col-lg-9'>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5 pl-2'f><'col-lg-7'p>>",
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: 'Export CSV',
+                    exportOptions: {
+                        modifier: {
+                            search: 'none',
+                            page: 'all'
+                        }
+                    }
+                }, 'colvis'
+            ],
+            "info": false,
+            "lengthChange": false,
+            "pageLength": 20,
+            "language": { search: '', searchPlaceholder: "Search..." }
+        });
+        $(".dt-buttons").addClass("col-xl-6 mx-auto mb-2 d-inline");
+        $(".buttons-colvis").html("<span><span class='fontWeight600'>Show</span> / <span class='fontWeight600'>Hide</span> Columns </span>");
+        $("#nonCheckedIn_filter label").addClass("float-left");
+        $("#nonCheckedIn_filter label").css("width", "100%");
+    }
+
+    function initDatatable() {
+        $('#CheckedIn').DataTable({
+            dom:/*'<"row my-4"Bf>t',*/
+                "<'row'<'col-lg-3'B><'col-lg-9'>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5 pl-2'f><'col-lg-7'p>>",
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: 'Export CSV',
+                    exportOptions: {
+                        modifier: {
+                            search: 'none',
+                            page: 'all'
+                        }
+                    }
+                }, 'colvis'
+            ],
+            "info": false,
+            "lengthChange": false,
+            "pageLength": 20,
+            "language": { search: '', searchPlaceholder: "Search..." }
+        });
+        $(".dt-buttons").addClass("col-xl-6 mx-auto mb-2 d-inline");
+        $(".buttons-colvis").html("<span><span class='fontWeight600'>Show</span> / <span class='fontWeight600'>Hide</span> Columns </span>");
+        $("#CheckedIn_filter label").addClass("float-left");
+        $("#CheckedIn_filter label").css("width", "100%");
+    }
+
+    $(document).ready(function () {
+        initDatatableNoCheck();
+        initDatatable();
+    });
+</script>
+
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">Export Class Line Ups</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<div class="container-fluid boxGreyBorders">
+    <div class="spacer-20px"></div>
+    <div class="col-md-6 offset-3">
+        <div class="col-sm paddingBottomMobileOnly_15px h3">
+            Click to expand a table, and export or view the data
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-1">
+            <h4 class="collapsible"> All Classes  - Registered Riders</h4>
+            <div class="content">
+                <table id="nonCheckedIn" class="table tableUseCasesLanding">
+                    <thead>
+                        <tr>
+                            <th>Class Number </th>
+                            <th>Class Name Name </th>
+                            <th>Rider Division </th>
+                            <th>Rider Number </th>
+                            <th>Rider Name </th>
+                            <th>Horse Name </th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.classLines_Registered)
+                    {
+                            <tr>
+                                <td> @item.intClassNum </td>
+                                <td> @item.strClassName </td>
+                                <td> @item.Division </td>
+                                <td> @item.intRiderNumber </td>
+                                <td> @item.strFirstName  @item.strLastName</td>
+                                <td> @item.strHorseName</td>
+                            </tr>
+                    }
+
+                </table>
+            </div>
+
+            <br /><br />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 offset-1">
+        <h4 class="collapsible"> All Classes - Registered and CHECKED IN Riders</h4>
+        <div class="content">
+            <table id="nonCheckedIn" class="table tableUseCasesLanding">
+                <thead>
+                    <tr>
+                        <th>Class Number </th>
+                        <th>Class Name Name </th>
+                        <th>Rider Division </th>
+                        <th>Rider Number </th>
+                        <th>Rider Name </th>
+                        <th>Horse Name </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.classLines_CheckedIn)
+                {
+                    <tr>
+                        <td> @item.intClassNum </td>
+                        <td> @item.strClassName </td>
+                        <td> @item.Division </td>
+                        <td> @item.intRiderNumber </td>
+                        <td> @item.strFirstName  @item.strLastName</td>
+                        <td> @item.strHorseName</td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+        <br /><br />
+    </div>
+</div>
+
+
+<div class="spacer-20px"></div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>

@@ -1,0 +1,20 @@
+﻿.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.footer-extracontent {
+    display: none;
+}
+
+#footer {
+    background-color: $primary-color;
+    color: set-text-color($primary-color);
+
+    a {
+        color: set-text-color($primary-color);
+    }
+}

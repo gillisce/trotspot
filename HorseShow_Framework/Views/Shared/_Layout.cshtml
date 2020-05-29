@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]>  <html lang="en">             <![endif]-->
+
+<html>
+<head>
+    <!-- Page Title - in the ViewBag is going to be the title of every individual page followed by: '| GIOS' -->
+    <!--            - 53 characters - including spaces  -->
+    <title>@ViewBag.Title</title>
+
+    <!-- Page Description - 160 characters - including spaces -->
+    @if (ViewBag.Description != null)
+    {
+        <meta name="description" content="@ViewBag.Description" />
+    }
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bundles -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    <!-- font awesome kit -->
+    <script src="https://kit.fontawesome.com/f1f65c27b6.js"></script>
+
+    <!-- global styles -->
+    <link href="~/Content/global.min.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+    <div id="cookie-consent" class="bg-dark">
+            <div class="container text-white">
+                <span> Trot Spot Technologies uses cookies to personalize the user experience and to analyze traffic.</span>
+                <button class="btn btn-xs btn-primary" id="consent">Accept</button> <button class="btn btn-xs btn-primary " id="learn-more">Learn more</button>
+            </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "KCrusade" })">Kelli's C.R.U.S.A.D.E.</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <a class="nav-item nav-link active" href="@Url.Action("Index", "Home", new { area = "KCrusade" })">Home</a>
+                </li>
+
+                <li>
+                    <a class="nav-item nav-link" href="@Url.Action("Registration", "Home", new {Area = "KCrusade" })">Registration</a>
+                </li>
+
+                @if (ViewBag.Showbill)
+                {
+                    <li>
+                        <a class="nav-item nav-link" href="@Url.Action("Index", "Showbill", new { Area = "Admin" })">Set Up Showbill</a>
+                    </li>
+                }
+                @if (ViewBag.CheckIn)
+                {
+                    <li>
+                        <a class="nav-item nav-link" href="@Url.Action("ListRegisteredRiders", "RunningShow", new { Area = "Admin" })">Check-In Rider</a>
+                    </li>
+                }
+                @if (ViewBag.ClassLineUp)
+                {
+                    <li>
+
+                        <a class="nav-item nav-link" href="@Url.Action("ClassLineUps", "RunningShow", new { Area = "Admin" })">View Line Up For Class</a>
+                    </li>
+                }@if (ViewBag.Showbill)
+                {
+                    <li>
+                        <a class="nav-item nav-link" href="@Url.Action("PlaceClass", "RunningShow", new { Area = "Admin" })">Place Class</a>
+                    </li>
+
+                }
+                @if (ViewBag.DivScores || ViewBag.ClassScores || ViewBag.BestInShow)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarResultsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Results
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarResultsDropdown">
+                            @if (ViewBag.DivScores)
+                            {
+                                <a class="nav-item nav-link" href="@Url.Action("DivisionScores", "RunningShow", new { Area = "Admin" })">Scores By Division</a>
+                            }@if (ViewBag.ClassScores)
+                            {
+                                <a class="nav-item nav-link" href="@Url.Action("ClassScores", "RunningShow", new { Area = "Admin" })">Scores by Class</a>
+                            }@if (ViewBag.BestInShow)
+                            {
+                                <a class="nav-item nav-link" href="@Url.Action("BestInShow", "RunningShow", new { Area = "Admin" })">Best in Show</a>
+                                <a class="nav-item nav-link" href="@Url.Action("ExportMasterScoreSheet", "RunningShow", new { Area = "Admin" })"> Master Score Sheet</a>
+
+                            }
+                        </div>
+                    </li>
+                }
+                @if (ViewBag.BestInShow)
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarResultsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Analytics </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarResultsDropdown">
+                            <a class="nav-item nav-link" href="@Url.Action("ViewAllRiderData", "RunningShow", new { Area = "Admin" })">All Rider Data</a>
+                            <a class="nav-item nav-link" href="@Url.Action("ExportPlacingsClass", "RunningShow", new { Area = "Admin" })">All Class Placings</a>
+                            <a class="nav-item nav-link" href="@Url.Action("ExportClassLineUps", "RunningShow", new { Area = "Admin" })"> All Class Line Ups</a>
+                            <a class="nav-item nav-link" href="@Url.Action("ExportMasterScoreSheet", "RunningShow", new { Area = "Admin" })"> Master Score Sheet</a>
+                            <a class="nav-item nav-link" href="@Url.Action("GetShowStats", "RunningShow", new { Area = "Admin" })"> General Show and Rider Stats</a>
+                        </div>
+                    </li>
+                }
+
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+
+
+
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div id="content" class="container-fluid">
+        @RenderBody()
+
+    </div>
+
+    @{ Html.RenderPartial("_Footer");}
+
+
+    <!-- bootstrap scripts -->
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/fh-3.1.4/r-2.2.2/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-flash-1.5.6/b-html5-1.5.6/b-print-1.5.6/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
+    <script type="text/javascript">
+            $(function () {
+                if (document.cookie.indexOf("cookies") < 0) {
+                    $('#cookie-consent').slideDown('slow');
+                }
+                $('#consent').on('click', function () {
+                    document.cookie = "cookies=yes; max-age=" + (5 * 365 * 24 * 60 * 60);
+                    $('#cookie-consent').slideUp('slow');
+                });
+                $('#learn-more').on('click', function () {
+                    location.href = '@Url.Action("Index", "Privacy", new { Area = "Privacy" })';
+                })
+            });
+        </script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model HorseShow_Framework.Areas.KCrusade.ViewModels.Registration_Class_VM
+    <div class="hide">
+        @Html.Editor("ClassList", new { htmlAttributes = new { @class = "form-control", @Value = Json.Encode(Model.lstClasses) } })
+        @Html.Editor("CLASSES", new { htmlAttributes = new { @class = "form-control", @Value = Json.Encode(Model.lstClasses) } })
+
+    </div>
+
+<div class="row">
+    <div class="col-12">
+        <div id="ClassHeader" class="col-md-auto control-label labelGIOS hide"><h4><span class="fontWeight600">Click </span>Classes to Add to Cart </h4></div>
+        <div id="totalCostLabel" class="col-md-auto control-label labelGIOS hide"><h5><span class="fontWeight600">Total: $<div id="totCost"></div></span></h5></div>
+    </div>
+</div>
+<div class="row">
+    @foreach (var item in Model.lstClasses)
+    {
+        <div id=@(item.intClassID + "_wrapper") class="col-sm-3 @if (!item.isActiveMapping) {@Html.Raw("noGood ") }  @if (item.ysnFlag) { @Html.Raw("ranch ") } else if(!item.ysnCross && !item.ysnFlag) {@Html.Raw("nonRanch ") } else if(item.ysnCross) { @Html.Raw(" all")} ">
+            <a id=@item.intClassID href="javascript:void(0);" onclick="addToEditCart(this.id, @(item.fltCost),
+                                                                               @if (item.ysnFlag) { @Html.Raw("true"); } else {  @Html.Raw("false"); }, //Ranch or NOt
+                                                                               @if (item.ysnCross) { @Html.Raw("true"); } else {  @Html.Raw("false");
+                                                                               })" class="cardStylesText">
+                <div id=@(item.intClassID + "_card") class="card cardStyles p-3 mb-5 @if (!item.isActiveMapping) { @Html.Raw("alert-danger ")}">
+                    <div class="card-body ">
+                        <h6 class="card-title"><strong>@(item.intClassNumber + ": " + item.strClassName) </strong></h6>
+                        <p class="card-text">
+                            @if (!String.IsNullOrEmpty(item.strNotes))
+                            {
+                                <div><strong>@item.strNotes</strong></div>
+                            }
+                            <div class="input-group-prepend"><span> @("$ " + item.fltCost + ".00")</span> </div>
+                            <div class="hide"><input type=checkbox id=@(item.intClassID + "_checked") /></div>
+                        </p> <img class="cardArrow" src="https://res.cloudinary.com/arconic/image/upload/v1548790515/GIOS/images/icon_font_awesome_arrow_right_15pt.png" />
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+

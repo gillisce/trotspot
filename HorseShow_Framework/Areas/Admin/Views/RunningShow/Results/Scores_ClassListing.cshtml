@@ -1,0 +1,71 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Class_VM
+@{
+    ViewBag.Title = "Class Line Ups";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+
+<!-- Hero Section -->
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">Scores By Class</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<!-- End Hero Section -->
+<div class="container-fluid boxGreyBorders">
+    <div class="spacer-20px"></div>
+    <div class="col-md-3 offset-3">
+        <div class="col-sm paddingBottomMobileOnly_15px">
+            <!-- Select Division -->
+            @Html.DropDownListFor(model => model.intClassNumber,
+           new SelectList(Model.classes.Select(m => m.intClassNumber + ": " + m.strClassName)),
+           "Select Class", new { @class = "dropDownGIOS form-control", onchange = "loadPartialView(this.value)" })
+        </div>
+    </div>
+</div>
+<br />
+<div id="viewToLoad">
+
+</div>
+
+
+
+
+<script>
+    function loadPartialView(str) {
+        var id = str.substring(0, str.indexOf(":"));
+        var obj = { intClassNumber: id };
+        AjaxCall('/Admin/RunningShow/getScoresInClass', JSON.stringify(obj), 'POST').done(function (response) {
+            $('#viewToLoad').html(response);
+
+        });
+    }
+
+
+    function AjaxCall(url, data, type) {
+        return $.ajax({
+            url: url,
+            type: type ? type : 'GET',
+            data: data,
+            dataType: 'html',
+            contentType: 'application/json',
+            async: false
+        });
+    }
+
+</script>

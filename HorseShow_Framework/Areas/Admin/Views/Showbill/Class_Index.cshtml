@@ -1,0 +1,130 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Class_VM
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table id="classTable" class="table tableUseCasesLanding">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.intClassNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.strClassName)
+                        </th>
+                        <th>
+                            Notes for this class
+                        </th>
+                        <th>
+                            RANCH ONLY CLASS
+                        </th>
+                        <th>
+                            GENERAL CLASSES (ie Anyone Can Be in this)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.fltCost)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.classes)
+                {
+                    <tr id="@(item.intClassID + "_row")">
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intClassNumber)</span>
+                            @Html.EditorFor(modelItem => item.intClassNumber, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intClassID + "_Number", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.strClassName)</span>
+                            @Html.EditorFor(modelItem => item.strClassName, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intClassID + "_Name", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.strNotes)</span>
+                            @Html.TextAreaFor(modelItem => item.strNotes, new { @class = "divYesEditing", @id = item.intClassID + "_Notes", @rows = "2", @style = "margin-top: 0;" })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.ysnFlag)</span>
+                            @Html.EditorFor(modelItem => item.ysnFlag, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intClassID + "_West", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.ysnCross)</span>
+                            @Html.EditorFor(modelItem => item.ysnCross, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intClassID + "_Cross", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.fltCost)</span>
+                            @Html.EditorFor(modelItem => item.fltCost, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intClassID + "_Cost", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td style="white-space:nowrap; text-align: center;">
+                            <a href="javascript:void(0);" title="Edit" class="linkTeal divNoEditing" onclick="editRow(this.id)" id="@item.intClassID">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Delete" class="linkTeal divNoEditing rightButton" id="@item.intClassID" onclick="removeClass(this.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Update" class="linkTeal divYesEditing" onclick="updateClass(this.id)" id="@item.intClassID">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Cancel" class="linkTeal divYesEditing rightButton" onclick="cancelEditRow(this.id)" id="@item.intClassID">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <!-- no new row; shown on load -->
+    <div class="row datatableFooter">
+        <div class="col-xl-9 divNoNewRow"></div>
+        <div class="col-xl-3 divNoNewRow buttonUpdateUseCase">
+            <a href="javascript:void(0);" title="Insert" class="card cardSmaller cardSmallerTextLightGrey" onclick="addNewRow()">
+                <div class="card-body" style="cursor: pointer; text-align: center;">
+                    <h5 class="card-title" style="margin-bottom: 0;">
+                        <i class="fas fa-plus colorTeal" style="font-size: 16px; padding-right: 6px;"></i>
+                        <span class="fontWeight600 colorTeal">Add</span>
+                        <span style="font-weight: 300;">Row</span>
+                    </h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- yes new row; shown when button is pressed -->
+    <div class="row datatableFooter">
+        <div class="col-xl-4 divYesNewRow mb-2">
+            <label>Class Number:</label>
+            @Html.EditorFor(model => model.intClassNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Class Number", @id = "classNumber" } })
+        </div>
+
+        <div class="col-xl-7 divYesNewRow mb-2">
+            <label>Class Name:</label>
+            @Html.EditorFor(model => model.strClassName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Class Name", @id = "className", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            <label>Additional Notes for Riders for this class:</label>
+            @Html.EditorFor(model => model.strNotes, new { htmlAttributes = new { @class = "form-control", @placeholder = "Notes", @id = "strNotes", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            <label>Is a Ranch Class?</label>
+            @Html.EditorFor(model => model.ysnFlag, new { htmlAttributes = new { @class = "form-control", @placeholder = "", @id = "ysnWest", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            <label>Can be entered by both Ranch and Other Riders?</label>
+            @Html.EditorFor(model => model.ysnCross, new { htmlAttributes = new { @class = "form-control", @placeholder = "", @id = "ysnCross", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            <label>Cost of the class:</label>
+            @Html.EditorFor(model => model.fltCost, new { htmlAttributes = new { @class = "form-control", @placeholder = "Cost", @id = "fltCost", @style = "margin-top: 0;" } })
+        </div>
+        <!-- buttons -->
+        <div class="col-xl-1 divYesNewRow" style="text-align: right; padding-left: 0;">
+            <a href="javascript:void(0);" title="Insert" class="linkTeal" onclick="insertClass()">
+                <i class="fas fa-check" style="font-size: 1rem;"></i>
+            </a>
+            <a href="javascript:void(0);" title="Cancel" class="linkTeal rightButton" onclick="cancelInsertRow()">
+                <i class="fas fa-times" style="font-size: 1rem;"></i>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Analytics.RiderStats
+@{
+    ViewBag.Title = "General Rider Data";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<script>
+    function initDatatable() {
+        $('#regRider').DataTable({
+            dom:/*'<"row my-4"Bf>t',*/
+                "<'row'<'col-lg-3'B><'col-lg-9'>>" +
+                "<'row'<'col-lg-12'tr>>" +
+                "<'row'<'col-lg-5 pl-2'f><'col-lg-7'p>>",
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: 'Export CSV',
+                    exportOptions: {
+                        modifier: {
+                            search: 'none',
+                            page: 'all'
+                        }
+                    }
+                }, 'colvis'
+            ],
+            "info": false,
+            "lengthChange": false,
+            "pageLength": 20,
+            "language": { search: '', searchPlaceholder: "Search..." }
+        });
+        $(".dt-buttons").addClass("col-xl-6 mx-auto mb-2 d-inline");
+        $(".buttons-colvis").html("<span><span class='fontWeight600'>Show</span> / <span class='fontWeight600'>Hide</span> Columns </span>");
+        $("#regRider_filter label").addClass("float-left");
+        $("#regRider_filter label").css("width", "100%");
+    }
+
+    $(document).ready(function () {
+        initDatatable();
+    });
+
+</script>
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">General Rider Data</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<!-- End Hero Section -->
+<div class="row">
+    <div class="offset-1 col-md-10">
+        <table id="regRider" class="table tableUseCaseLanding">
+            <thead>
+                <tr>
+                    <th>Person ID</th>
+                    <th>Division</th>
+                    <th>Age</th>
+                    <th>Class Count</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>Payment Method</th>
+
+                </tr>
+            </thead>
+            @foreach (var item in Model.generalInfo)
+            {
+                <tr>
+                    <td> @item.PersonID</td>
+                    <td> @item.DivisionName</td>
+                    <td> @item.Age</td>
+                    <td> @item.ClassCount</td>
+                    <td> @item.City</td>
+                    <td> @item.State</td>
+                    <td> @item.ZipCode</td>
+                    <td> @item.PaymentMethod</td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

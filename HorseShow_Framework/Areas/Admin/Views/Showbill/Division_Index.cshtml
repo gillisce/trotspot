@@ -1,0 +1,122 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Division_VM
+
+<style>
+    .divYesEditing {
+        display: none;
+    }
+    .divYesNewRow {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table id="divisionTable" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.strDivisionName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.strDivisionDescr)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.intMinAge)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.intMaxAge)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.dtmCreated)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.divisions)
+                {
+                    <tr id="@(item.intDivisionID + "_row")">
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.strDivisionName)</span>
+                            @Html.EditorFor(modelItem => item.strDivisionName, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intDivisionID + "_name", @rows = "2", @style = "margin-top: 0;" } })
+
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.strDivisionDescr) </span>
+                            @Html.EditorFor(modelItem => item.strDivisionDescr, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intDivisionID + "_descr", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intMinAge) </span>
+                            @Html.EditorFor(modelItem => item.intMinAge, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intDivisionID + "_minAge", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intMaxAge) </span>
+                            @Html.EditorFor(modelItem => item.intMaxAge, new { htmlAttributes = new { @class = "divYesEditing", @id = item.intDivisionID + "_maxAge", @rows = "2", @style = "margin-top: 0;" } })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dtmCreated)
+                        </td>
+                        <td style="white-space:nowrap; text-align: center;">
+                            <a href="javascript:void(0);" title="Edit" class="linkTeal divNoEditing" onclick="editRow(this.id)" id="@item.intDivisionID">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Delete" class="linkTeal divNoEditing rightButton" id="@item.intDivisionID" onclick="removeDivision(this.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Update" class="linkTeal divYesEditing" onclick="updateDivision(this.id)" id="@item.intDivisionID">
+                                <i class="fas fa-check"></i>
+                            </a>
+                            <a href="javascript:void(0);" title="Cancel" class="linkTeal divYesEditing rightButton" onclick="cancelEditRow(this.id)" id="@item.intDivisionID">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <!-- no new row; shown on load -->
+    <div class="row datatableFooter">
+        <div class="col-xl-9 divNoNewRow"></div>
+        <div class="col-xl-3 divNoNewRow buttonUpdateUseCase">
+            <a href="javascript:void(0);" title="Insert" class="link-as-card" onclick="addNewRow()">
+                <div class="card">
+                    <div class="card-body" style="cursor: pointer; text-align: center;">
+                        <h5 class="card-title" style="margin-bottom: 0;">
+                            <i class="fas fa-plus colorTeal" style="font-size: 16px; padding-right: 6px;"></i>
+                            <span class="fontWeight600 colorTeal">Add</span>
+                            <span style="font-weight: 300;">Row</span>
+                        </h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- yes new row; shown when button is pressed -->
+    <div class="row datatableFooter">
+        <div class="col-xl-4 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.strDivisionName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Division Name", @id = "divisionName" } })
+        </div>
+
+        <div class="col-xl-7 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.strDivisionDescr, new { htmlAttributes = new { @class = "form-control", @placeholder = "Division Description", @id = "divisionDescr", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.intMaxAge, new { htmlAttributes = new { @class = "form-control", @placeholder = "Min Rider Age", @id = "divisionMinAge", @style = "margin-top: 0;" } })
+        </div>
+        <div class="col-xl-7 divYesNewRow mb-2">
+            @Html.EditorFor(model => model.intMinAge, new { htmlAttributes = new { @class = "form-control", @placeholder = "Max Rider Age", @id = "divisionMaxAge", @style = "margin-top: 0;" } })
+        </div>
+        <!-- buttons -->
+        <div class="col-xl-1 divYesNewRow" style="text-align: right; padding-left: 0;">
+            <a href="javascript:void(0);" title="Insert" class="linkTeal" onclick="insertDivision()">
+                <i class="fas fa-check" style="font-size: 1rem;"></i>
+            </a>
+            <a href="javascript:void(0);" title="Cancel" class="linkTeal rightButton" onclick="cancelInsertRow()">
+                <i class="fas fa-times" style="font-size: 1rem;"></i>
+            </a>
+        </div>
+    </div>
+</div>

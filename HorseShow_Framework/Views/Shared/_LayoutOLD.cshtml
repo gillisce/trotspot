@@ -1,0 +1,662 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Title -->
+    <title>@ViewBag.Title</title>
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link href="~/Content/css/LayoutMotherload.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/asets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="~/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="~/assets/vendor/custombox/dist/custombox.min.css">
+    <link rel="stylesheet" href="~/assets/vendor/animate.css/animate.min.css">
+
+    <!-- CSS Space Template -->
+    <link rel="stylesheet" href="~/assets/css/theme.css">
+</head>
+
+<body>
+    <!-- Skippy -->
+    <a id="skippy" class="sr-only sr-only-focusable u-skippy" href="#content">
+        <div class="container">
+            <span class="u-skiplink-text">Skip to main content</span>
+        </div>
+    </a>
+    <!-- End Skippy -->
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="u-header u-header--modern">
+        <div class="u-header__section">
+            <div id="logoAndNav" class="container">
+                <!-- Nav -->
+                <nav class="js-mega-menu navbar navbar-expand-lg u-header__navbar">
+                    <!-- Logo -->
+                    <div class="u-header__navbar-brand-wrapper">
+                        <a class="navbar-brand u-header__navbar-brand" href="@Html.ActionLink("Home", "Index", "Home",new { area = "KCrusade" }, new { @class = "nav-link" })" aria-label="Space">
+                            <img class="u-header__navbar-brand-default" src="~/assets/svg/logos/logo.svg" alt="Logo">
+                            <img class="u-header__navbar-brand-mobile" src="~/assets/svg/logos/logo-short.svg" alt="Logo">
+                        </a>
+                    </div>
+                    <!-- End Logo -->
+                    <!-- Responsive Toggle Button -->
+                    <button type="button" class="navbar-toggler btn u-hamburger u-header__hamburger"
+                            aria-label="Toggle navigation"
+                            aria-expanded="false"
+                            aria-controls="navBar"
+                            data-toggle="collapse"
+                            data-target="#navBar">
+                        <span class="d-none d-sm-inline-block">Menu</span>
+                        <span id="hamburgerTrigger" class="u-hamburger__box ml-3">
+                            <span class="u-hamburger__inner"></span>
+                        </span>
+                    </button>
+                    <!-- End Responsive Toggle Button -->
+                    <!-- Navigation -->
+                    <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse py-0">
+                        <ul class="navbar-nav u-header__navbar-nav">
+                            <!-- Home -->
+                            <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                                data-event="hover"
+                                data-animation-in="fadeInUp"
+                                data-animation-out="fadeOut">
+                                <a id="homeMegaMenu" class="nav-link u-header__nav-link" href="javascript:;"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"
+                                   aria-labelledby="homeSubMenu">
+                                    Home
+                                    <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                                </a>
+                            </li>
+                            <!-- End Home -->
+                            <!-- Admin -->
+                            <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                                data-event="hover"
+                                data-animation-in="fadeInUp"
+                                data-animation-out="fadeOut">
+                                <a id="adminMegaMenu" class="nav-link u-header__nav-link" href="javascript:;"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"
+                                   aria-labelledby="adminSubMenu">
+                                    Admin
+                                    <span class="fa fa-angle-down u-header__nav-link-icon"></span>
+                                </a>
+
+                                <!-- Admin - Submenu -->
+                                <ul id="adminSubMenu" class="list-inline hs-sub-menu u-header__sub-menu mb-0" style="min-width: 220px;"
+                                    aria-labelledby="adminMegaMenu">
+                                    <!-- Divisions -->
+                                    <li class="dropdown-item hs-has-sub-menu">
+                                        <a id="navLinkWorksBoxedLayout" class="nav-link u-header__sub-menu-nav-link" href="@Html.ActionLink("Showbill", "Index", "Showbill",new { area = "Admin" }, new { @class = "nav-link" })""
+                                           aria-haspopup="true"
+                                           aria-expanded="false"
+                                           aria-controls="navSubmenuWorksBoxedLayout">
+                                            Modify Divisions
+                                            <span class="fa fa-angle-right u-header__sub-menu-nav-link-icon"></span>
+                                        </a>
+                                    </li>
+                                    <!-- Divisions -->
+                                    <!-- Classes -->
+                                    <li class="dropdown-item hs-has-sub-menu">
+                                        <a id="navLinkWorksFullWidthLayout" class="nav-link u-header__sub-menu-nav-link" href="@Url.Action("Index","AdminDivClass")"
+                                           aria-haspopup="true"
+                                           aria-expanded="false"
+                                           aria-controls="navSubmenuWorksFullWidthLayout">
+                                            Modify Classes
+                                            <span class="fa fa-angle-right u-header__sub-menu-nav-link-icon"></span>
+                                        </a>
+                                    </li>
+                                    <!-- Classes -->
+                                    <!-- Show Bill -->
+                                    <li class="dropdown-item hs-has-sub-menu">
+                                        <a id="navLinkWorksSinglePage" class="nav-link u-header__sub-menu-nav-link" href="@Url.Action("Index","DivisionClassMappings")"
+                                           aria-haspopup="true"
+                                           aria-expanded="false"
+                                           aria-controls="navSubmenuWorksSinglePage">
+                                            Create Show Bill
+                                            <span class="fa fa-angle-right u-header__sub-menu-nav-link-icon"></span>
+                                        </a>
+                                    </li>
+                                    <!-- Show Bill -->
+                                    <!-- Set Point Values -->
+                                    <li class="dropdown-item hs-has-sub-menu">
+                                        <a id="navLinkAdminPoints" class="nav-link u-header__sub-menu-nav-link" href="@Url.Action("Index","PlacePointValues")"
+                                           aria-haspopup="true"
+                                           aria-expanded="false"
+                                           aria-controls="navSubmenuAdminPoints">
+                                            Set Point Values
+                                            <span class="fa fa-angle-right u-header__sub-menu-nav-link-icon"></span>
+                                        </a>
+                                    </li>
+                                    <!-- Set Point values -->
+                                </ul>
+                                <!-- End Works - Submenu -->
+                            </li>
+                            <!-- End Admin -->
+                            <!-- Button -->
+                            <li class="nav-item u-header__nav-item-btn">
+                                <a class="btn btn-sm btn-primary" href="#signupModal" role="button"
+                                   data-modal-target="#signupModal"
+                                   data-overlay-color="#151b26">
+                                    <span class="fa fa-user-circle mr-1"></span>
+                                    Signin
+                                </a>
+                            </li>
+                            <!-- End Button -->
+                           
+                        </ul>
+                    </div>
+                    <!-- End Navigation -->
+                 </nav>
+                <!-- End Nav -->
+            </div>
+        </div>
+    </header>
+    <!-- ========== END HEADER ========== -->
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content" role="main">
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+
+    <!-- ========== SECONDARY CONTENTS ========== -->
+    <!-- Panel Sidebar Navigation -->
+    <aside id="sidebarContent" class="u-sidebar u-unfold--css-animation u-unfold--hidden" aria-labelledby="sidebarNavToggler">
+        <div class="u-sidebar__scroller">
+            <div class="u-sidebar__container">
+                <div class="u-sidebar--panel__footer-offset">
+                    <!-- Toggle Button -->
+                    <div class="d-flex align-items-center border-bottom py-4 px-5">
+                        <h4 class="h5 mb-0">Account</h4>
+
+                        <button type="button" class="close u-sidebar__close ml-auto"
+                                aria-controls="sidebarContent"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                data-unfold-event="click"
+                                data-unfold-hide-on-scroll="false"
+                                data-unfold-target="#sidebarContent"
+                                data-unfold-type="css-animation"
+                                data-unfold-animation-in="fadeInRight"
+                                data-unfold-animation-out="fadeOutRight"
+                                data-unfold-duration="500">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- End Toggle Button -->
+                    <!-- Content -->
+                    <div class="js-scrollbar u-sidebar__body">
+                        <div class="u-sidebar__content py-5">
+                            <!-- Title -->
+                            <div class="py-2 px-5">
+                                <h4 class="text-uppercase text-muted font-size-13 mb-0">Menu label</h4>
+                            </div>
+                            <!-- End Title -->
+                            <!-- List -->
+                            <ul class="list-unstyled font-size-14 mb-5">
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/finance-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Dashboard</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/touch-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Activity</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/team-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Team</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/email-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Mailbox</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/projects-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Projects</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End List -->
+                            <!-- Title -->
+                            <div class="py-2 px-5">
+                                <h4 class="text-uppercase text-muted font-size-13 mb-0">Sub level</h4>
+                            </div>
+                            <!-- End Title -->
+                            <!-- List -->
+                            <ul class="list-unstyled font-size-14 mb-0">
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/calendar-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Calendar</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/cog-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Tools</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media align-items-center u-sidebar--panel__link py-2 px-5" href="#">
+                                        <img class="max-width-4 mr-3" src="../../assets/svg/components/archive-dark-icon.svg" alt="Image Description">
+                                        <div class="media-body">
+                                            <span>Archive</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                    </div>
+                    <!-- End Content -->
+                </div>
+
+                <!-- Footer -->
+                <footer class="u-sidebar__footer u-sidebar__footer--panel py-4 px-5">
+                    <!-- List -->
+                    <ul class="list-inline font-size-14 mb-0">
+                        <li class="list-inline-item">
+                            <a class="u-sidebar--panel__link pr-2" href="../../html/pages/privacy.html">Privacy</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-sidebar--panel__link px-2" href="../../html/pages/terms.html">Terms</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="u-sidebar--panel__link pl-2" href="../../html/pages/help.html">
+                                <i class="fa fa-info-circle"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End List -->
+                </footer>
+                <!-- End Footer -->
+            </div>
+        </div>
+    </aside>
+    <!-- End Panel Sidebar Navigation -->
+    <!-- Signup Modal Window -->
+    <div id="signupModal" class="js-shopping-account u-modal-window" style="width: 500px;">
+        <!-- Modal Close Button -->
+        <button class="btn btn-sm btn-icon btn-text-secondary u-modal-window__close" type="button" onclick="Custombox.modal.close();">
+            <span class="fas fa-times"></span>
+        </button>
+        <!-- End Modal Close Button -->
+        <!-- Content -->
+        <div class="p-5">
+            <form class="js-validate">
+                <!-- Signin -->
+                <div id="signin" data-target-group="idForm">
+                    <!-- Title -->
+                    <header class="text-center mb-5">
+                        <h2 class="h4 mb-0">Please sign in</h2>
+                        <p>Signin to manage your account.</p>
+                    </header>
+                    <!-- End Title -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-user form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="email" class="form-control form__input" name="email" required
+                                   placeholder="Email"
+                                   aria-label="Email"
+                                   data-msg="Please enter a valid email address."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-lock form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form__input" name="password" required
+                                   placeholder="Password"
+                                   aria-label="Password"
+                                   data-msg="Your password is invalid. Please try again."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <!-- Checkbox -->
+                            <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                                <input type="checkbox" class="custom-control-input" id="rememberMeCheckbox">
+                                <label class="custom-control-label" for="rememberMeCheckbox">
+                                    Remember Me
+                                </label>
+                            </div>
+                            <!-- End Checkbox -->
+                        </div>
+
+                        <div class="col-6 text-right">
+                            <a class="js-animation-link float-right" href="javascript:;"
+                               data-target="#forgotPassword"
+                               data-link-group="idForm"
+                               data-animation-in="fadeIn">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-block btn-primary">Signin</button>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <p class="text-muted">
+                            Do not have an account?
+                            <a class="js-animation-link" href="javascript:;"
+                               data-target="#signup"
+                               data-link-group="idForm"
+                               data-animation-in="fadeIn">
+                                Signup
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="text-center u-divider-wrapper my-3">
+                        <span class="u-divider u-divider--xs u-divider--text">OR</span>
+                    </div>
+                    <!-- End Divider -->
+                    <!-- Signin Social Buttons -->
+                    <div class="row mx-gutters-2 mb-4">
+                        <div class="col-sm-6 mb-2 mb-sm-0">
+                            <button type="button" class="btn btn-block btn-facebook">
+                                <span class="fab fa-facebook-f mr-2"></span>
+                                Signin with Facebook
+                            </button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block btn-twitter">
+                                <span class="fab fa-twitter mr-2"></span>
+                                Signin with Twitter
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Signin Social Buttons -->
+                </div>
+                <!-- End Signin -->
+                <!-- Signup -->
+                <div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
+                    <!-- Title -->
+                    <header class="text-center mb-5">
+                        <h2 class="h4 mb-0">Please sign up</h2>
+                        <p>Fill out the form to get started.</p>
+                    </header>
+                    <!-- End Title -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-user form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="email" class="form-control form__input" name="email" required
+                                   placeholder="Email"
+                                   aria-label="Email"
+                                   data-msg="Please enter a valid email address."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-lock form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form__input" name="password" required
+                                   placeholder="Password"
+                                   aria-label="Password"
+                                   data-msg="Your password is invalid. Please try again."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-key form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form__input" name="confirmPassword" required
+                                   placeholder="Confirm Password"
+                                   aria-label="Confirm Password"
+                                   data-msg="Password does not match the confirm password."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-block btn-primary">Signup</button>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <p class="text-muted">
+                            Have an account?
+                            <a class="js-animation-link" href="javascript:;"
+                               data-target="#signin"
+                               data-link-group="idForm"
+                               data-animation-in="fadeIn">
+                                Signin
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="text-center u-divider-wrapper my-3">
+                        <span class="u-divider u-divider--xs u-divider--text">OR</span>
+                    </div>
+                    <!-- End Divider -->
+                    <!-- Signup Social Buttons -->
+                    <div class="row mx-gutters-2 mb-4">
+                        <div class="col-sm-6 mb-2 mb-sm-0">
+                            <button type="button" class="btn btn-block btn-facebook">
+                                <span class="fab fa-facebook-f mr-2"></span>
+                                Signup with Facebook
+                            </button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block btn-twitter">
+                                <span class="fab fa-twitter mr-2"></span>
+                                Signup with Twitter
+                            </button>
+                        </div>
+                    </div>
+                    <!-- End Signup Social Buttons -->
+                </div>
+                <!-- End Signup -->
+                <!-- Forgot Password -->
+                <div id="forgotPassword" style="display: none; opacity: 0;" data-target-group="idForm">
+                    <!-- Title -->
+                    <header class="text-center mb-5">
+                        <h2 class="h4 mb-0">Recover account</h2>
+                        <p>Enter your email address and an email with instructions will be sent to you.</p>
+                    </header>
+                    <!-- End Title -->
+                    <!-- Input -->
+                    <div class="js-form-message mb-3">
+                        <div class="js-focus-state input-group form">
+                            <div class="input-group-prepend form__prepend">
+                                <span class="input-group-text form__text">
+                                    <span class="fa fa-user form__text-inner"></span>
+                                </span>
+                            </div>
+                            <input type="email" class="form-control form__input" name="email" required
+                                   placeholder="Email"
+                                   aria-label="Email"
+                                   data-msg="Please enter a valid email address."
+                                   data-error-class="u-has-error"
+                                   data-success-class="u-has-success">
+                        </div>
+                    </div>
+                    <!-- End Input -->
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-block btn-primary">Recover Account</button>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <p class="text-muted">
+                            Have an account?
+                            <a class="js-animation-link" href="javascript:;"
+                               data-target="#signin"
+                               data-link-group="idForm"
+                               data-animation-in="fadeIn">
+                                Signin
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <!-- End Forgot Password -->
+            </form>
+        </div>
+        <!-- End Content -->
+    </div>
+    <!-- End Signup Modal Window -->
+    <!-- ========== END SECONDARY CONTENTS ========== -->
+    <!-- Go to Top -->
+    <a class="js-go-to u-go-to" href="#"
+       data-position='{"bottom": 15, "right": 15 }'
+       data-type="fixed"
+       data-offset-top="400"
+       data-compensation="#header"
+       data-show-effect="slideInUp"
+       data-hide-effect="slideOutDown">
+        <span class="fa fa-arrow-up u-go-to__inner"></span>
+    </a>
+    <!-- End Go to Top -->
+    <!-- JS Global Compulsory -->
+    <script src="~/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="~/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="~/assets/vendor/hs-megamenu/src/hs.megamenu.js"></script>
+    <script src="~/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/assets/vendor/custombox/dist/custombox.min.js"></script>
+    <script src="~/assets/vendor/custombox/dist/custombox.legacy.min.js"></script>
+
+    <!-- JS Space -->
+    <script src="~/assets/js/hs.core.js"></script>
+    <script src="~/assets/js/components/hs.header.js"></script>
+    <script src="~/assets/js/components/hs.unfold.js"></script>
+    <script src="~/assets/js/components/hs.validation.js"></script>
+    <script src="~/assets/js/helpers/hs.focus-state.js"></script>
+    <script src="~/assets/js/components/hs.malihu-scrollbar.js"></script>
+    <script src="~/assets/js/components/hs.modal-window.js"></script>
+    <script src="~/assets/js/components/hs.show-animation.js"></script>
+    <script src="~/assets/js/components/hs.go-to.js"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+        $(window).on('load', function () {
+            // initialization of HSMegaMenu component
+            $('.js-mega-menu').HSMegaMenu({
+                event: 'hover',
+                pageContainer: $('.container'),
+                breakpoint: 991,
+                hideTimeOut: 0
+            });
+        });
+
+        $(document).on('ready', function () {
+            // initialization of header
+            $.HSCore.components.HSHeader.init($('#header'));
+
+            // initialization of unfold component
+            $.HSCore.components.HSUnfold.init($('[data-unfold-target]'), {
+                afterOpen: function () {
+                    $(this).find('input[type="search"]').focus();
+                }
+            });
+
+            // initialization of form validation
+            $.HSCore.components.HSValidation.init('.js-validate', {
+                rules: {
+                    confirmPassword: {
+                        equalTo: '#password'
+                    }
+                }
+            });
+
+            // initialization of forms
+            $.HSCore.helpers.HSFocusState.init();
+
+            // initialization of malihu scrollbar
+            $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
+
+            // initialization of autonomous popups
+            $.HSCore.components.HSModalWindow.init('[data-modal-target]', '.js-signup-account', {
+                autonomous: true
+            });
+
+            // initialization of show animations
+            $.HSCore.components.HSShowAnimation.init('.js-animation-link');
+
+            // initialization of go to
+            $.HSCore.components.HSGoTo.init('.js-go-to');
+        });
+    </script>
+</body>
+</html>

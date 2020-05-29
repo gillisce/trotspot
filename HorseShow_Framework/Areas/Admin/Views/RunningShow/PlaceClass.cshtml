@@ -1,0 +1,48 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Class_VM
+@{
+    ViewBag.Title = "Class Placing";
+    ViewBag.Description = "Select Class That Placed";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+    <script src="~/Areas/Admin/Content/Scripts/placeClass-main.js"></script>
+
+
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">Place Riders in Class</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<!-- End Hero Section -->
+<div class="container-fluid boxGreyBorders">
+    <div class="spacer-20px"></div>
+    <div class="col-md-3 offset-3">
+        <h6> Select the Name of the Class that needs Placed</h6>
+        <div class="col-sm paddingBottomMobileOnly_15px">
+            <!-- Select Division -->
+            @Html.DropDownListFor(model => model.intClassNumber,
+           new SelectList(Model.classes.Select(m => m.intClassNumber + ": " + m.strClassName)),
+           "Select Class", new { @class = "dropDownGIOS form-control", onchange = "loadPartialView(this.value)" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <br />
+</div>
+<div id="viewToLoad">
+
+</div>
+
+<script>
+    var arrRiders = [];
+</script>

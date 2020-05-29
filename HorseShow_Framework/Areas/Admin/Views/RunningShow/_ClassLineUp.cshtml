@@ -1,0 +1,54 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.ClassRiders
+<script>
+
+    $(document).ready(function () {
+        intitClassTable();
+    });
+
+    
+</script>
+<div class="row">
+    <div class="offset-4 col-md-4">
+        <h2 id="tableTitle"> @Model.intClassNum : @Model.strClassName</h2>
+        <h4 id="tableCount">Total Riders in Class: @Model.classRiders.Count</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <table id="classTable" class="table tableUseCasesLanding">
+            <thead id="dt-header">
+                <tr>
+                    <th colspan="3"> @Model.intClassNum : @Model.strClassName </th>
+                </tr>
+                <tr>
+                    <th>
+                        Rider Number
+                    </th>
+                    <th>
+                        Rider Name
+                    </th>
+                    <th>
+                        Horse Name
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.classRiders)
+            {
+                <tr>
+                    <td>
+                        <span class="divNoEditing">@Html.DisplayFor(modelItem => item.intRiderNumber)</span>
+                    </td>
+                    <td>
+                        <span class="divNoEditing">@item.strFirstName @item.strLastName</span>
+                    </td>
+                    <td>
+                        <span class="divNoEditing">@Html.DisplayFor(modelItem => item.strHorseName)</span>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<div class="spacer-20px"></div>

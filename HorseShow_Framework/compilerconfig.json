@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/global.css",
+    "inputFile": "Content/global.scss"
+  },
+  {
+    "outputFile": "Areas/KCrusade/Content/Styles/_home.css",
+    "inputFile": "Areas/KCrusade/Content/Styles/_home.scss"
+  }
+]

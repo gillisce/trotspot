@@ -1,0 +1,103 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.RegisteredRider_VM
+@{
+    ViewBag.Title = "Check In Rider";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+<script src="~/Areas/Admin/Content/Scripts/list-registeredriders.js"></script>
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">Select Rider to Check In</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<!-- End Hero Section -->
+@{
+    int totalRiderCount = Model.listRiders.Count;
+    int riderNotCheckedIn = Model.listRiders.Count(x => x.isCheckedIn != true);
+    int ridersCheckedIN = Model.listRiders.Count(x => x.isCheckedIn == true);
+    int ridersNotPaid = Model.listRiders.Count(x => x.isPaid != true);
+    int ridersPaid = Model.listRiders.Count(x => x.isPaid == true);
+    int totalDue = Model.listRiders.Where(i => i.isCheckedIn == true).Sum(x => x.intTotalDue);
+}
+<div class="row">
+    <div class="col-8 offset-2">
+        <table class="table tableUseCaseLanding">
+            <tr>
+                <td><strong>Total Riders Registered: </strong> </td>
+                <td>@totalRiderCount</td>
+                <td><strong>Riders Checked In: </strong></td>
+                <td>@ridersCheckedIN / @totalRiderCount</td>
+                <td><strong>Riders That have Paid: </strong></td>
+                <td>@ridersPaid / @totalRiderCount</td>
+                <td><strong>Total $ For Checked in Riders: </strong></td>
+                <td>$@totalDue</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="offset-1 col-md-10">
+        <table id="regRider" class="table tableUseCaseLanding">
+            <thead>
+                <tr>
+                    <th>Rider Name</th>
+                    <th>Horse Name</th>
+                    <th>Division</th>
+                    <th>Rider Number</th>
+                    <th>Total Due</th>
+                    <th>Checked In</th>
+                    <th>Paid</th>
+                    <th># Of Classes Registered For</th>
+                    <th>Remove Rider From Show</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.listRiders)
+            {
+                <tr>
+                    <td> <a class="linkTeal" href="@Url.Action("EditRiderRegistration","RunningShow", new { intHorseRiderID = item.intHorseRiderID })" target="_blank">@Html.DisplayFor(m => item.strRiderName)</a></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.strHorseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.strDivisionRegistered)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.intRiderNumber)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.intTotalDue).00
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isCheckedIn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isPaid)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.intClassCount)
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" title="Delete" class="linkTeal divNoEditing rightButton" id="@item.intHorseRiderID" onclick="removeRider(this.id)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

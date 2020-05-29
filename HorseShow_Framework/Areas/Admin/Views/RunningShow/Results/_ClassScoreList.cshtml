@@ -1,0 +1,54 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.Results.ClassBreakdown
+<script>
+
+    $(document).ready(function () {
+        intitClassTable();
+    });
+
+    function intitClassTable() {
+        $('#classTable').DataTable({
+            dom: '<"row my-4"Bf>t',
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.hide)'
+                }
+            ],
+            "search":false,
+            "paging": false,
+            "info": false,
+        });
+        $("#classTable_filter").addClass("col-xl-6 m-auto");
+        $(".dt-buttons").addClass("col-xl-6 mx-auto mb-2 d-inline");
+        $(".buttons-colvis").html("<span><span class='fontWeight600'>Show</span> / <span class='fontWeight600'>Hide</span> Columns </span>");
+
+    }
+</script>
+<div class="row">
+    <div class="offset-2 col-md-6">
+        <table id="classTable" class="table tableUseCasesLanding">
+        <thead>
+            <tr>
+                <th>Place </th>
+                <th>Rider Number </th>
+                <th>Rider Name </th>
+                <th>Rider Horse Name </th>
+                
+            </tr>
+        </thead>
+        @foreach (var item in Model.results)
+        {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.intTotalScore)</td>
+            <td>@Html.DisplayFor(modelItem => item.intRiderNum)</td>
+            <td>@Html.DisplayFor(modelItem => item.strFirstName)  @item.strLastName</td>
+            <td>@Html.DisplayFor(modelItem => item.strHorseName)</td>
+        </tr>
+        }
+
+        </table>
+    </div> 
+</div>
+<
+<div class="spacer-20px"></div>
+

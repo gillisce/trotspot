@@ -1,0 +1,22 @@
+﻿@model HorseShow_Framework.Areas.Security.Models.Permissions_VM
+@{
+    ViewBag.Title = "User Account";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <h1>YYou Have Logged in</h1>
+
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+}
+

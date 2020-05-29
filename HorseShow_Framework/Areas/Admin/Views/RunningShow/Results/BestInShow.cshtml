@@ -1,0 +1,98 @@
+﻿
+@model HorseShow_Framework.Areas.Admin.ViewModels.Results.BestInShow
+
+@{
+    ViewBag.Title = "Best in Show";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.18/b-1.5.4/b-colvis-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/cr-1.5.0/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            dom: '<"row my-4"Bf>t',
+            order: [[4, "desc"]],
+            buttons: [
+                {
+                    extend: 'colvis',
+                    columns: ':not(.hide)'
+                }
+            ],
+            "paging": false,
+            "info": false,
+            "language": { search: '', searchPlaceholder: "Search..." }
+        });
+        $("#divisionTable_filter").addClass("col-xl-6 m-auto");
+        $(".buttons-colvis").html("<span><span class='fontWeight600'>Show</span> / <span class='fontWeight600'>Hide</span> Columns </span>");
+    });
+
+</script>
+
+
+<div class="bg-dark">
+    <div class="container text-center space-2 space-3--lg">
+        <!-- Title -->
+        <div class="w-md-80 w-lg-50 mx-md-auto mb-5">
+            <h1 class="h1">
+                <span class="font-weight-medium text-white">Best in Show</span>
+            </h1>
+        </div>
+        <!-- End Title -->
+    </div>
+</div>
+<!-- End Hero Section -->
+
+<div class="row">
+    <div class="col-md-10 offset-1">
+        <div class="content">
+            <table id="table" class="table tableUseCasesLanding">
+                <thead>
+                    <tr>
+                        <th>Division</th>
+                        <th>Rider Number </th>
+                        <th>Rider Name </th>
+                        <th>Rider Horse Name </th>
+                        <th>Total Score </th>
+                        <th>1st Place Wins </th>
+                        <th>2nd Place Wins </th>
+                        <th>3rd Place Wins </th>
+                        <th>4th Place Wins </th>
+                        <th>5th Place Wins </th>
+
+                    </tr>
+                </thead>
+                @foreach (var item in Model.results)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.strName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.intRiderNum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.strFirstName)  @item.strLastName</td>
+                        <td>@Html.DisplayFor(modelItem => item.strHorseName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.intTotalScore)</td>
+                        <td>@Html.DisplayFor(modelItem => item.int1stPlaceCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.int2PlaceCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.int3PlaceCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.int4PlaceCount)</td>
+                        <td>@Html.DisplayFor(modelItem => item.int5PlaceCount)</td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+
+        <br /><br />
+    </div>
+
+</div>
+
+
+<div class="spacer-20px"></div>

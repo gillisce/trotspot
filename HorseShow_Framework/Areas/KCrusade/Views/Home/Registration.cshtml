@@ -1,0 +1,209 @@
+﻿@model HorseShow_Framework.Areas.KCrusade.ViewModels.RegistrationMain_VM
+<script src="~/Areas/KCrusade/Content/Scripts/Registration.js"></script>
+@{
+    ViewBag.Title = "New Rider Registration";
+    ViewBag.Description = "Register for Your Horse Show";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+<script>
+        var reviewURL = '@Url.Action("Index", "Home")';
+</script>
+
+<div class="container-fluid">
+    <div class="alert alert-info text-center mw-50" role="alert">
+        Welcome to the @DateTime.Now.Year Kelli's CRUSADE horse show!
+        <br />
+        <strong>Important Registration Insturctions</strong>
+        <br />
+        You must register each rider and horse pair separately AND each division separately as you will be using a different rider number. 
+        (For example - if you have horse name "Buddy" in W/T 19 & over and "Trudy" in W/T 19 & Over, you must register twice. ) 
+        Upon completion of this form, please press submit. Ranch classes are their own division this year.  
+        You will not be able to edit a submission until the day of the show. To do that you will visit the entry booth.
+        <br />
+        On the day of the show, please see attendant at the entry booth to check in, sign your release form, confirm your classes, and pay.
+        <br />
+        For issues registering, email <a href="mailto:liz.valentin@gmail.com">liz.valentin@gmail.com</a>
+        <br />
+        <strong>Thank you for supporting Kelli's CRUSADE!</strong>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("Registration", "Home", FormMethod.Post, new { enctype = "multipart/formdata", @id="submitRider" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="hide">
+        @Html.Editor("Divs", new { htmlAttributes = new { @class = "form-control", @Value = Html.Raw(Json.Encode(Model.divisions)) } })
+        @Html.Editor("RiderNums", new { htmlAttributes = new { @class = "form-control", @Value = Html.Raw(Json.Encode(Model.lstExistingRiderNumbers)) } })
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="mt-4 mb-4"></div>
+
+    <div class="container">
+        <div class="form-group">
+            <div class="row text-center">
+                <div class="col">
+                    <h4>Rider Info</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label for="person_strFirstName">First Name</label>
+                    @Html.EditorFor(model => model.person.strFirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.person.strFirstName, "", new { @class = "invalidData" })
+                </div>
+                <div class="col-md">
+                    <label for="person_strLastName">Last Name</label>
+                    @Html.EditorFor(model => model.person.strLastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.person.strLastName, "", new { @class = "invalidData" })
+                </div>
+                <div class="col-sm">
+                    <label for="person_intAge">Age</label>
+                    @Html.EditorFor(model => model.person.intAge, new { htmlAttributes = new { @class = "form-control", @type = "number", @onfocusout = "loadDivisionDropDown(this.value);" } })
+                    @Html.ValidationMessageFor(model => model.person.intAge, "", new { @class = "invalidData" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mt-4 mb-4">
+
+    <div class="container">
+        <div class="form-group">
+            <div class="row text-center">
+                <div class="col">
+                    <h4>Contact Info</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label for="person_strEmail">Email Address</label>
+                    @Html.EditorFor(model => model.person.strEmail, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                    @Html.ValidationMessageFor(model => model.person.strEmail, "", new { @class = "invalidData" })
+                </div>
+                <div class="col-md">
+                    <label for="person_intPhoneNumber">Phone Number</label>
+                    @Html.EditorFor(model => model.person.intPhoneNumber, new { htmlAttributes = new { @class = "form-control", @type = "tel" } })
+                    @Html.ValidationMessageFor(model => model.person.intPhoneNumber, "", new { @class = "invalidData" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="person_strAddress">Address</label>
+                    @Html.EditorFor(model => model.person.strAddress, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.person.strAddress, "", new { @class = "invalidData" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label for="person_strCity">City</label>
+                    @Html.EditorFor(model => model.person.strCity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.person.strCity, "", new { @class = "invalidData" })
+                </div>
+                <div class="col">
+                    <label for="person_strState">State</label>
+                    @Html.EditorFor(model => model.person.strState, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.person.strState, "", new { @class = "invalidData" })
+                </div>
+                <div class="col">
+                    <label for="person_intZipCode">Zip Code</label>
+                    @Html.EditorFor(model => model.person.intZipCode, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                    @Html.ValidationMessageFor(model => model.person.intZipCode, "", new { @class = "invalidData" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mt-4 mb-4">
+
+    <div class="container">
+        <div class="form-group">
+            <div class="row text-center">
+                <div class="col">
+                    <h4>Horse Info</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label for="horse_strHorseName">Horse Name</label>
+                    @Html.EditorFor(model => model.horse.strHorseName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.horse.strHorseName, "", new { @class = "invalidData" })
+                </div>
+                <div class="col-md">
+                    <label for="horse_intRiderNumber">Rider Number</label>
+                    @Html.EditorFor(model => model.horse.intRiderNumber, new { htmlAttributes = new { @class = "form-control", @type = "number", @onfocusout = "checkAgainstRiderNumbers(this.value)" } })
+                    @Html.ValidationMessageFor(model => model.horse.intRiderNumber, "", new { @class = "invalidData" })
+                    <small id="alertNormal" class="form-text text-muted mx-3">If you have a specific number you want to use, please enter it here. If not, you will be assigned a number at check-in.</small>
+                    <div id="alertError" class="text-muted hide invalidData">Another rider has already chosen this number, please select a different number or leave it blank and we will assign a number when you check in for the show.</div>
+                </div>
+                <div class="col-md">
+                    <label for="DivisionDDL">Division</label>
+                    @Html.DropDownListFor(model => model.strDivName, new SelectList(new List<SelectListItem>(), "Text", "Text"), new { @id = "DivisionDDL", @class = "dropDownGIOS form-control", onchange = "populateDDL(this)" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- partial that gets populated once dropdown is selected -->
+    <div id="classListing"></div>
+
+
+    <div class="container hide" id="storeListing">
+        <div class="row text-center">
+            <div class="col">
+                <h4>Click to Add to Cart</h4>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.storeItems)
+            {
+                <div class="col-md">
+                    <a id="@("store_" + item.intItemID)" class="link-as-card" href="javascript:void(0)" onclick="addItemToCart(this.id, @item.fltCost)">
+                        <div id="@("store_"+item.intItemID + "_card")" class="card shopping-card m-1">
+                            <div class="card-body">
+                                <h5 class="col-sm card-title float-left">@item.strItemName</h5>
+                                <h5 class="col-sm float-right"> $ @item.fltCost.00 </h5>
+                                <h6 class="col-sm card-subtitle mb-2 text-muted">@item.strItemDescription</h6>
+                                <!-- hidden checkbox -->
+                                <div class="hide"><input type=checkbox id="@("store_"+item.intItemID + "_checked")" /> </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <hr class="mt-4 mb-4">
+
+
+    @Html.HiddenFor(m => Model.strSelectedClasses)
+    @Html.HiddenFor(m => Model.strSelectedStoreItems)
+    @Html.HiddenFor(m => Model.totalDue)
+<div class="row">
+    <div class="offset-1 col-sm-5">
+        <div class="card cardSmaller">
+            <div class="card-header">
+                <h4>By Clicking "Submit" I agree that:</h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>I have read and accepted the <a href="@Url.Action("Index", "Privacy", new { Area = "Privacy" })" target="_blank"> Privacy Policy</a> for Trot Spot Technologies </li>
+                    <li>I may receive an email confirming my registration for the Kelli's C.R.U.S.A.D.E Horse Show</li>
+                </ul>
+                <input type="submit" class="btn btn-primary " id="form-submit" value="Submit Registration" name="Registration" />
+            </div>
+        </div>
+    </div>
+</div>
+    
+}
+

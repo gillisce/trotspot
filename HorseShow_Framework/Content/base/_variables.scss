@@ -1,0 +1,21 @@
+﻿
+/* fonts */
+$pt-sans: 'PT Sans', serif;
+$open-sans: 'Open Sans', sans-serif;
+
+/* colors */
+$primary-color: #ff6a99;
+$secondary-color: #ffffff;
+$tertiary-color: #000000;
+$theme-colors: (
+    "primary": $primary-color,
+    "secondary": $secondary-color
+);
+
+/* fonts */
+$font-family-sans-serif: -apple-system, system-ui, BlinkMacSystemFont, "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$font-family-base: $font-family-sans-serif !default;
+$font-family-headings: "PT Sans", Arial, sans-serif;
+
+/* bootstrap overrides */
+$enable-gradients: true;

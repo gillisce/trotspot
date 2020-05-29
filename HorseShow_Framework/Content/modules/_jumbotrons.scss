@@ -1,0 +1,16 @@
+﻿.carousel-item-transparent {
+    img {
+        opacity: 0.5;
+    }
+}
+
+.jumbotron-centered-content {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.jumbotron-transparent {
+    background: rgba(255, 255, 255, .75) !important;
+}

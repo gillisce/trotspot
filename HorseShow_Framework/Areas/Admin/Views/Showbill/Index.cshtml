@@ -1,0 +1,102 @@
+﻿@model HorseShow_Framework.Areas.Admin.ViewModels.AdminShowbill_VM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Create Showbill";
+    ViewBag.CheckIn = Model.UserPermissions.CheckIn_Riders;
+    ViewBag.ShowBill = Model.UserPermissions.Showbill_Settings;
+    ViewBag.ClassLineUp = Model.UserPermissions.View_ClassLineUp;
+    ViewBag.DivScores = Model.UserPermissions.View_DivScores;
+    ViewBag.ClassScores = Model.UserPermissions.View_ClassScores;
+    ViewBag.BestInShow = Model.UserPermissions.BestInShow_Results;
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12 px-0 py-2 bg-gradient-dark text-white text-center mb-5">
+            <h1>
+                Create and Modify Showbill
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#divisions">Show Divisions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#classes">Classes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#points">Points Per Placing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#store">Store Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#divClasses">Assign Classes to Divisions</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane container active" id="divisions">
+                    @Html.Partial("Division_Index", Model._division_vm)
+                </div>
+                <div class="tab-pane container fade" id="classes">
+                    @Html.Partial("Class_Index", Model._class_vm)
+                </div>
+                <div class="tab-pane container fade" id="points">
+                    @Html.Partial("PlacePoint_Index", Model._pointsPerPlace_vm)
+                </div>
+                <div class="tab-pane container fade" id="store">
+                    @Html.Partial("Store_Index", Model._store_vm)
+                </div>
+                <div class="tab-pane container fade" id="divClasses">
+                    @Html.Partial("DivClass_Index", Model._divClassMappings_vm)
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+    <!-- modal -->
+    <div class="modal" id="confirmUpdateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>The row has been successfully updated.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <link href="~/Content/plugins/jquery-multi-selection.css" rel="stylesheet" />
+    <script src="~/Content/plugins/jquery.multi-selection.v1.js"></script>
+
+    <script src="~/Areas/Admin/Content/Scripts/ShowbillScripts.js"></script>
+
+
+
+</div>
